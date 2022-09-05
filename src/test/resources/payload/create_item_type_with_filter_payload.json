@@ -1,0 +1,31 @@
+{
+  "name": "Item Type with Filter",
+  "description": "This item type is for testing purposes only.",
+  "modelKey": "meta_model_1",
+  "filter" : {
+    "filters": [
+      {
+        "authors": [
+          {"authors_of_all_books": "$.store.book[*].author"},
+          {"all_authors": "$..author"}
+        ]
+      },
+      {
+        "store": [
+          {"all_books_and_bikes": "$.store.*"},
+          {"all_prices": "$.store..price"}
+        ]
+      },
+      {
+        "books": [
+          {"not_expensive": "$..book[?(@.price <= $['expensive'])]"},
+          {"last_two": "$..book[-2:]"},
+          {"cheaper_than_ten": "$.store.book[?(@.price < 10)]"},
+          {"book_count": "$..book.length()"}
+        ]
+      }
+    ]
+  },
+  "metaSchema": {
+  }
+}

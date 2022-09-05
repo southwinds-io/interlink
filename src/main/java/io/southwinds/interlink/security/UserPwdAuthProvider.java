@@ -1,0 +1,90 @@
+/*
+    Interlink Configuration Management Database
+    © 2018-Present - SouthWinds Tech Ltd - www.southwinds.io
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+    Contributors to this project, hereby assign copyright in their code to the
+    project, to be licensed under the same terms as the rest of the code.
+*/
+package io.southwinds.interlink.security;
+
+import io.southwinds.interlink.data.UserData;
+import io.southwinds.interlink.db.DbRepository;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+  authenticates the user based on credentials securely stored in the Onix database
+ */
+@Service
+public class UserPwdAuthProvider implements AuthenticationProvider {
+    private final DbRepository db;
+    private final PwdBasedEncryptor enc;
+    public UserPwdAuthProvider(DbRepository db, PwdBasedEncryptor enc) {
+        this.db = db;
+        this.enc = enc;
+    }
+
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        String username = (String)authentication.getPrincipal();
+        String pwd = (String)authentication.getCredentials();
+
+        // retrieve the user
+        UserData user = db.getUser(username, new String[]{"ADMIN"});
+
+        // if the user was not found
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("User details not found for username: %s", username));
+        }
+
+        boolean authenticated = enc.authenticateUser(username, pwd, user);
+        
+        // if the user failed the authentication 
+        if (!authenticated) {
+            // issues a bad credentials exception
+            throw new BadCredentialsException(String.format("Authentication failed for %s", username));
+        }
+
+        AbstractAuthenticationToken token = null;
+        try {
+            // at this point, the user is authenticated so fetches the roles the user has been assigned
+            List grantedAuthorities = getUserAuthorities(username);
+            token = new UsernamePasswordAuthenticationToken(username, pwd, grantedAuthorities);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        // constructs an authorization object 
+        return token;
+    }
+
+    private List<GrantedAuthority> getUserAuthorities(String username) {
+        List<String> roles = db.getUserRolesInternal(username);
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for (String userRole : roles) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(String.format("ROLE_%s", userRole)));
+        }
+        return grantedAuthorities;
+    }
+
+    @Override
+    public boolean supports(Class<?> authenticationClass) {
+        // the type of object returned by 
+        return authenticationClass.equals(UsernamePasswordAuthenticationToken.class);
+    }
+}

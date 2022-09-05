@@ -1,0 +1,9 @@
+{
+  "name": "WBS",
+  "description": "WBS code.",
+  "type": "string",
+  "defValue": "AA-0001",
+  "required": true,
+  "regex": "[AA]+",
+  "linkTypeKey": "link_type_1"
+}

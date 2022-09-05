@@ -1,0 +1,9 @@
+{
+  "name": "COMPANY",
+  "description": "The company name",
+  "type": "list",
+  "defValue": "ACME Inc",
+  "required": false,
+  "regex": "",
+  "linkTypeKey": "link_type_1"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "WBS",
+  "description": "The WBS code.",
+  "type": "list",
+  "defValue": "AA-0001",
+  "required": true,
+  "regex": "",
+  "itemTypeKey": "item_type_1"
+}

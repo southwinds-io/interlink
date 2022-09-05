@@ -1,0 +1,7 @@
+---
+functions:
+    - name: build-java
+      description: builds the interlink jar file
+      run:
+        - mvn -Dmaven.test.skip=true -f pom.xml package
+...

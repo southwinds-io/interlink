@@ -1,0 +1,7 @@
+{
+  "roleKey": "ROLE_01",
+  "partitionKey": "PART_02",
+  "canCreate": false,
+  "canRead": true,
+  "canDelete": false
+}

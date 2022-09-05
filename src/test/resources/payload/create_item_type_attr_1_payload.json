@@ -1,0 +1,9 @@
+{
+  "name": "COMPANY",
+  "description": "The company name.",
+  "type": "list",
+  "defValue": "Acme Inc.",
+  "required": true,
+  "regex": "",
+  "itemTypeKey": "item_type_1"
+}

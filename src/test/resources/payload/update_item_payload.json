@@ -1,0 +1,18 @@
+{
+  "name": "Updated Test Item",
+  "description": "This is an updated CMDB item for testing purposes.",
+  "type": "item_type_1",
+  "txt": "This is a sample configuration text here.",
+  "meta": {
+    "IP": "192.168.0.1",
+    "Vendor": "Supreme Computers",
+    "Type": "Virtual Machine",
+    "OS": "CentOS 7.5"
+  },
+  "tag": ["cmdb", "host", "centos"],
+  "attribute": {
+    "COMPANY" : "ACME",
+    "WBS": "AA-0001"
+  },
+  "status": 2
+}

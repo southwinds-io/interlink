@@ -1,0 +1,69 @@
+{
+  "models": [
+    {
+      "key": "ANSIBLE",
+      "name": "Anisble Inventory Model",
+      "description": "Model created for testing purposes"
+    }
+  ],
+  "itemTypes": [
+    {
+      "key": "ANSIBLE_INVENTORY",
+      "name": "Ansible Inventory",
+      "description": "This item type is for testing purposes only.",
+      "modelKey": "ANSIBLE"
+    },
+    {
+      "key": "ANSIBLE_HOST_GROUP_SET",
+      "name": "Ansible Host Group Set",
+      "description": "This item type is for testing purposes only.",
+      "modelKey": "ANSIBLE"
+    },
+    {
+      "key": "ANSIBLE_HOST_GROUP",
+      "name": "Ansible Host Group",
+      "description": "This item type is for testing purposes only.",
+      "modelKey": "ANSIBLE"
+    },
+    {
+      "key": "ANSIBLE_HOST",
+      "name": "Ansible Host",
+      "description": "This item type is for testing purposes only.",
+      "modelKey": "ANSIBLE"
+    }
+  ],
+  "linkTypes": [
+    {
+      "key": "ANSIBLE_INVENTORY",
+      "name": "Ansible Inventory Link",
+      "description": "This item type is for testing purposes only.",
+      "modelKey": "ANSIBLE"
+    }
+  ],
+  "linkRules": [
+    {
+      "key": "RULE_1",
+      "name": "Test Link Rule 1",
+      "description": "This link rule is for testing purposes only.",
+      "linkTypeKey": "ANSIBLE_INVENTORY",
+      "startItemTypeKey": "ANSIBLE_INVENTORY",
+      "endItemTypeKey": "ANSIBLE_INVENTORY"
+    },
+    {
+      "key": "RULE_2",
+      "name": "Test Link Rule 2",
+      "description": "This link rule is for testing purposes only.",
+      "linkTypeKey": "ANSIBLE_INVENTORY",
+      "startItemTypeKey": "ANSIBLE_INVENTORY",
+      "endItemTypeKey": "ANSIBLE_HOST_GROUP"
+    },
+    {
+      "key": "RULE_3",
+      "name": "Test Link Rule 3",
+      "description": "This link rule is for testing purposes only.",
+      "linkTypeKey": "ANSIBLE_INVENTORY",
+      "startItemTypeKey": "ANSIBLE_HOST_GROUP",
+      "endItemTypeKey": "ANSIBLE_HOST"
+    }
+  ]
+}
