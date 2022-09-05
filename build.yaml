@@ -1,7 +1,24 @@
 ---
+env:
+  REG_NAME: registry.gitlab.com
+  REPO_NAME: southwinds/images
+  IMG_NAME: interlink
+  IMG_TAG: 1.0.0
+
 functions:
-    - name: build-java
-      description: builds the interlink jar file
-      run:
-        - mvn -Dmaven.test.skip=true -f pom.xml package
+  - name: build-java
+    run:
+      - rm -rf target
+      - mvn -Dmaven.test.skip=true -f pom.xml package && unzip -o ./target/*.jar -d /tmp
+
+  - name: build-image
+    description: builds the interlink image
+    run:
+      - docker build -t ${REG_NAME}/${REPO_NAME}/${IMG_NAME}:${IMG_TAG} .
+
+  - name: push-image
+    description: pushes the image to the registry
+    run:
+      - docker login ${REG_NAME} -u southwinds-io -p ${REG_PASSWORD}
+      - docker push ${REG_NAME}/${REPO_NAME}/${IMG_NAME}:${IMG_TAG}
 ...

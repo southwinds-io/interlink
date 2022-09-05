@@ -21,11 +21,8 @@ MAINTAINER skipper <skipper@southwinds.io>
 
 LABEL author="southwinds.io"
 
-ARG JAVA_URL
-ARG JAVA_SHA256
 ARG JAVA_HOME
 
-COPY downloadJDK.sh configureJDK.sh ./
-
-RUN sh downloadJDK.sh $JAVA_URL $JAVA_SHA256 $JAVA_HOME
+ADD jdk $JAVA_HOME
+ADD configureJDK.sh ./
 RUN sh configureJDK.sh $JAVA_HOME

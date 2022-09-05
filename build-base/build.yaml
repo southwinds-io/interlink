@@ -1,6 +1,7 @@
 ---
 env:
-  REPO_NAME: registry.gitlab.com/southwinds/images
+  REG_NAME: registry.gitlab.com
+  REPO_NAME: southwinds/images
   IMG_NAME: openjdk
   IMG_TAG: 14-j9-ubi8-min
   JAVA_URL: https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.2%2B12_openj9-0.21.0/OpenJDK14U-jre_x64_linux_openj9_14.0.2_12_openj9-0.21.0.tar.gz
@@ -8,8 +9,25 @@ env:
   JAVA_HOME: /usr/java/openjdk-14
 
 functions:
-  - name: build
+  - name: build-image
     description: builds jdk base image
     run:
-      - docker build -t ${REPO_NAME}/${IMG_NAME}:${IMG_TAG} --build-arg ${JAVA_URL} --build-arg ${JAVA_SHA256} --build-arg ${JAVA_HOME} .
+      # download jdk
+      - curl -fL -o ./openjdk.tgz "${JAVA_URL}"
+      # check checksum
+      - echo "${JAVA_SHA256} */openjdk.tgz" | sha256sum -c -
+      # extract jdk
+      - mkdir -p ./jdk
+      - tar --extract --file ./openjdk.tgz --directory ./jdk --strip-components 1
+      - rm -f ./openjdk.tgz
+      # ensure latest ubi image
+      - docker pull registry.access.redhat.com/ubi8/ubi-minimal
+      # build ubi-jdk image
+      - docker build -t ${REG_NAME}/${REPO_NAME}/${IMG_NAME}:${IMG_TAG} --build-arg JAVA_HOME=${JAVA_HOME} .
+
+  - name: push-image
+    description: pushes the image to the registry
+    run:
+      - docker login ${REG_NAME} -u southwinds-io -p ${REG_PASSWORD}
+      - docker push ${REG_NAME}/${REPO_NAME}/${IMG_NAME}:${IMG_TAG}
 ...
