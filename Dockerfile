@@ -16,7 +16,7 @@
 # The release image copy the prepared app files from the builder image
 
 # the builder transient container
-FROM amazoncorretto:18-alpine-jdk as builder
+FROM amazoncorretto:19-alpine-jdk as builder
 
 RUN apk add unzip && rm -rf /var/cache/apk/*
 
