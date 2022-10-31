@@ -218,7 +218,7 @@ class Database {
     private void setVersion(String appVer, String dbVer, String desc, String scriptSrc) {
         log.info(String.format("Recording version of database installed: %s:%s.", appVer, dbVer));
         try {
-            prepare("SELECT ox_set_version(" +
+            prepare("SELECT link_set_version(" +
                     "?::character varying," +
                     "?::character varying," +
                     "?::text," +
@@ -261,7 +261,7 @@ class Database {
         String query = "SELECT routines.routine_name as fx_name\n" +
                 "FROM information_schema.routines\n" +
                 "WHERE routines.specific_schema='public'\n" +
-                "AND routines.routine_name LIKE 'ox_%'\n" +
+                "AND routines.routine_name LIKE 'link_%'\n" +
                 "ORDER BY routines.routine_name;";
         try {
             prepare(query);

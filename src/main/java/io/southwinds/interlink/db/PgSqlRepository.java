@@ -673,7 +673,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getSetTypeAttributeSQL() {
-        return "SELECT ox_set_type_attribute(" +
+        return "SELECT link_set_type_attribute(" +
                 "?::character varying," + // key_param
                 "?::character varying," + // name_param
                 "?::text," + // description_param
@@ -691,7 +691,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetItemTypeAttributeSQL() {
-        return "SELECT * FROM ox_item_type_attribute(" +
+        return "SELECT * FROM link_item_type_attribute(" +
                 "?::character varying," + // item_type_key_param
                 "?::character varying," + // type_attr_key_param
                 "?::character varying[]" + // role_key_param
@@ -701,7 +701,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetLinkTypeAttributeSQL() {
-        return "SELECT * FROM ox_link_type_attribute(" +
+        return "SELECT * FROM link_link_type_attribute(" +
                 "?::character varying," + // link_type_key_param
                 "?::character varying," + // type_attr_key_param
                 "?::character varying[]" + // role_key_param
@@ -710,7 +710,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetLinkTypeAttributesSQL() {
-        return "SELECT * FROM ox_get_link_type_attributes(" +
+        return "SELECT * FROM link_get_link_type_attributes(" +
                 "?::character varying," + // link_type_key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -718,7 +718,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteItemTypeAttributeSQL() {
-        return "SELECT ox_delete_item_type_attribute(" +
+        return "SELECT link_delete_item_type_attribute(" +
                 "?::character varying," + // item_type_key_param
                 "?::character varying," + // type_attr_key_param
                 "?::character varying[]" + // role_key_param
@@ -727,7 +727,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteLinkTypeAttributeSQL() {
-        return "SELECT ox_delete_link_type_attribute(" +
+        return "SELECT link_delete_link_type_attribute(" +
                 "?::character varying," + // link_type_key_param
                 "?::character varying," + // type_attr_key_param
                 "?::character varying[]" + // role_key_param
@@ -736,7 +736,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetItemTypeAttributesSQL() {
-        return "SELECT * FROM ox_get_item_type_attributes(" +
+        return "SELECT * FROM link_get_item_type_attributes(" +
                 "?::character varying," +
                 "?::character varying[]" +
                 ")";
@@ -1019,7 +1019,7 @@ public class PgSqlRepository implements DbRepository {
         }
 
         // ensures all queries are filtered by role(s)
-        q = q.replace("from item", "from ox_items(?::character varying[])");
+        q = q.replace("from item", "from link_items(?::character varying[])");
 
         try {
             // creates a sql statement to pass to the database
@@ -1060,7 +1060,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetItemSQL() {
-        return "SELECT * FROM ox_item(" +
+        return "SELECT * FROM link_item(" +
                 "?::character varying," + // key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1068,7 +1068,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getSetItemSQL() {
-        return "SELECT ox_set_item(" +
+        return "SELECT link_set_item(" +
                 "?::character varying," +
                 "?::character varying," +
                 "?::text," +
@@ -1090,7 +1090,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getFindItemsSQL() {
-        return "SELECT * FROM ox_find_items(" +
+        return "SELECT * FROM link_find_items(" +
                 "?::text[]," + // tag
                 "?::hstore," + // attribute
                 "?::smallint," + // status
@@ -1108,7 +1108,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteItemSQL() {
-        return "SELECT ox_delete_item(" +
+        return "SELECT link_delete_item(" +
                 "?::character varying," +
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1116,14 +1116,14 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteAllItemsSQL() {
-        return "SELECT ox_delete_all_items(" +
+        return "SELECT link_delete_all_items(" +
                 "?::character varying[]" + // role_key_param
                 ")";
     }
 
     @Override
     public String getDeleteLinkSQL() {
-        return "SELECT ox_delete_link(" +
+        return "SELECT link_delete_link(" +
                 "?::character varying," +
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1131,7 +1131,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetLinkSQL() {
-        return "SELECT * FROM ox_link(" +
+        return "SELECT * FROM link_link(" +
                 "?::character varying," +
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1139,7 +1139,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetLinkRuleSQL() {
-        return "SELECT * FROM ox_link_rule(" +
+        return "SELECT * FROM link_link_rule(" +
                 "?::character varying," +
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1147,7 +1147,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getSetLinkSQL() {
-        return "SELECT ox_set_link(" +
+        return "SELECT link_set_link(" +
                 "?::character varying," + // key
                 "?::character varying," + // link_type_key
                 "?::character varying," + // start_item_key
@@ -1168,7 +1168,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getFindLinksSQL() {
-        return "SELECT * FROM ox_find_links(" +
+        return "SELECT * FROM link_find_links(" +
                 "?::character varying," + // start_item_key_param
                 "?::character varying," + // end_item_key_param
                 "?::text[]," + // tag_param
@@ -1187,14 +1187,14 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getClearAllSQL() {
-        return "SELECT ox_clear_all(" +
+        return "SELECT link_clear_all(" +
                 "?::character varying[]" + // role_key_param
                 ")";
     }
 
     @Override
     public String getDeleteItemTypeSQL() {
-        return "SELECT ox_delete_item_type(" +
+        return "SELECT link_delete_item_type(" +
                 "?::character varying," +
                 "?::character varying[]" +
                 ")";
@@ -1202,14 +1202,14 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteItemTypes() {
-        return "SELECT ox_delete_item_types(" +
+        return "SELECT link_delete_item_types(" +
                 "?::character varying[]" + // role_key_param
                 ")";
     }
 
     @Override
     public String getFindItemTypesSQL() {
-        return "SELECT * FROM ox_find_item_types(" +
+        return "SELECT * FROM link_find_item_types(" +
                 "?::timestamp(6) with time zone," + // date created from
                 "?::timestamp(6) with time zone," + // date created to
                 "?::timestamp(6) with time zone," + // date updates from
@@ -1221,7 +1221,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getSetItemTypeSQL() {
-        return "SELECT ox_set_item_type(" +
+        return "SELECT link_set_item_type(" +
                 "?::character varying," + // key
                 "?::character varying," + // name
                 "?::text," + // description
@@ -1241,7 +1241,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetItemTypeSQL() {
-        return "SELECT * FROM ox_item_type(" +
+        return "SELECT * FROM link_item_type(" +
                 "?::character varying," + // key
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1249,7 +1249,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteLinkTypeSQL() {
-        return "SELECT ox_delete_link_type(" +
+        return "SELECT link_delete_link_type(" +
                 "?::character varying," +
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1257,14 +1257,14 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteLinkTypes() {
-        return "SELECT ox_delete_link_types(" +
+        return "SELECT link_delete_link_types(" +
                 "?::character varying[]" + // role_key_param
                 ")";
     }
 
     @Override
     public String getFindLinkTypesSQL() {
-        return "SELECT * FROM ox_find_link_types(" +
+        return "SELECT * FROM link_find_link_types(" +
                 "?::timestamp(6) with time zone," + // date created from
                 "?::timestamp(6) with time zone," + // date created to
                 "?::timestamp(6) with time zone," + // date updates from
@@ -1276,7 +1276,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getSetLinkTypeSQL() {
-        return "SELECT ox_set_link_type(" +
+        return "SELECT link_set_link_type(" +
                 "?::character varying," + // key
                 "?::character varying," + // name
                 "?::text," + // description
@@ -1294,7 +1294,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetLinkTypeSQL() {
-        return "SELECT * FROM ox_link_type(" +
+        return "SELECT * FROM link_link_type(" +
                 "?::character varying," + // key
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1302,7 +1302,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteLinkRuleSQL() {
-        return "SELECT ox_delete_link_rule(" +
+        return "SELECT link_delete_link_rule(" +
                 "?::character varying," + // key
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1310,7 +1310,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteLinkRulesSQL() {
-        return "SELECT ox_delete_link_rules(" +
+        return "SELECT link_delete_link_rules(" +
                 "?::character varying[]" + // role_key_param
                 ")";
     }
@@ -1594,7 +1594,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getSetModelSQL() {
-        return "SELECT ox_set_model(" +
+        return "SELECT link_set_model(" +
                 "?::character varying," + // key_param
                 "?::character varying," + // name_param
                 "?::text," + // description_param
@@ -1608,14 +1608,14 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetModelsSQL() {
-        return "SELECT * FROM ox_get_models(" +
+        return "SELECT * FROM link_get_models(" +
                 "?::character varying[]" + // role_key_param
                 ")";
     }
 
     @Override
     public String getGetModelSQL() {
-        return "SELECT * FROM ox_model(" +
+        return "SELECT * FROM link_model(" +
                 "?::character varying," + // key
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1656,7 +1656,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetModelItemTypesSQL() {
-        return "SELECT * FROM ox_get_model_item_types(" +
+        return "SELECT * FROM link_get_model_item_types(" +
                 "?::character varying," + // model_key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1664,7 +1664,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetModelLinkTypesSQL() {
-        return "SELECT * FROM ox_get_model_link_types(" +
+        return "SELECT * FROM link_get_model_link_types(" +
                 "?::character varying," + // model_key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1672,7 +1672,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetModelLinkRulesSQL() {
-        return "SELECT * FROM ox_get_model_link_rules(" +
+        return "SELECT * FROM link_get_model_link_rules(" +
                 "?::character varying," + // model_key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1680,7 +1680,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteModelSQL() {
-        return "SELECT ox_delete_model(" +
+        return "SELECT link_delete_model(" +
                 "?::character varying, " + // model_key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1688,7 +1688,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteUserSQL() {
-        return "SELECT ox_delete_user(" +
+        return "SELECT link_delete_user(" +
                 "?::character varying, " + // model_key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1714,7 +1714,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetUserRolesInternalSQL() {
-        return "SELECT * FROM ox_get_user_roles_list(" +
+        return "SELECT * FROM link_get_user_roles_list(" +
                 "?::character varying" + // user_key_param
                 ")";
     }
@@ -1755,7 +1755,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getAddMembershipSQL() {
-        return "SELECT ox_add_membership(" +
+        return "SELECT link_add_membership(" +
                 "?::character varying," + // key
                 "?::character varying," + // user_key_param
                 "?::character varying," + // role_key_param
@@ -1776,7 +1776,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteMembershipSQL() {
-        return "SELECT ox_delete_membership(" +
+        return "SELECT link_delete_membership(" +
                 "?::character varying, " + // membership_key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1784,7 +1784,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getSetLinkRuleSQL() {
-        return "SELECT ox_set_link_rule(" +
+        return "SELECT link_set_link_rule(" +
                 "?::character varying," + // key
                 "?::character varying," + // name
                 "?::text," + // description
@@ -1799,7 +1799,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getFindLinkRulesSQL() {
-        return "SELECT * FROM ox_find_link_rules(" +
+        return "SELECT * FROM link_find_link_rules(" +
                 "?::character varying," +
                 "?::character varying," +
                 "?::character varying," +
@@ -1813,7 +1813,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getFindChildItemsSQL() {
-        return "SELECT * FROM ox_find_child_items(" +
+        return "SELECT * FROM link_find_child_items(" +
                 "?::character varying," + // parent_item_key_param
                 "?::character varying" + // link_type_key_param
                 ")";
@@ -1821,7 +1821,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getCreateTagSQL() {
-        return "SELECT ox_create_tag(" +
+        return "SELECT link_create_tag(" +
                 "?::character varying," + // root_item_key_param
                 "?::character varying," + // tag_label_param
                 "?::character varying," + // tag_name_param
@@ -1832,7 +1832,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteTagSQL() {
-        return "SELECT ox_delete_tag(" +
+        return "SELECT link_delete_tag(" +
                 "?::character varying," + // root_item_key_param
                 "?::character varying" + // tag_label_param
                 ")";
@@ -1840,7 +1840,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getUpdateTagSQL() {
-        return "SELECT ox_update_tag(" +
+        return "SELECT link_update_tag(" +
                 "?::character varying," + // root_item_key_param
                 "?::character varying," + // current_label_param
                 "?::character varying," + // new_label_param
@@ -1853,14 +1853,14 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetItemTagsSQL() {
-        return "SELECT * FROM ox_get_item_tags(" +
+        return "SELECT * FROM link_get_item_tags(" +
                 "?::character varying" + // root_item_key_param
                 ")";
     }
 
     @Override
     public String getGetTreeItemsForTagSQL() {
-        return "SELECT * FROM ox_get_tree_items(" +
+        return "SELECT * FROM link_get_tree_items(" +
                 "?::character varying," + // root_item_key_param
                 "?::character varying" + // tag_label_param
                 ")";
@@ -1868,7 +1868,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetTreeLinksForTagSQL() {
-        return "SELECT * FROM ox_get_tree_links(" +
+        return "SELECT * FROM link_get_tree_links(" +
                 "?::character varying," + // root_item_key_param
                 "?::character varying" + // tag_label_param
                 ")";
@@ -1876,14 +1876,14 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteItemTreeSQL() {
-        return "SELECT ox_delete_tree(" +
+        return "SELECT link_delete_tree(" +
                 "?::character varying" + // root_item_key_param
                 ")";
     }
 
     @Override
     public String getTableCountSQL() {
-        return "SELECT ox_get_table_count();";
+        return "SELECT link_get_table_count();";
     }
 
     private String getUser() {
@@ -1985,7 +1985,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeleteRoleSQL() {
-        return "SELECT ox_delete_role(" +
+        return "SELECT link_delete_role(" +
                 "?::character varying," + // key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -1993,7 +1993,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getSetRoleSQL() {
-        return "SELECT ox_set_role(" +
+        return "SELECT link_set_role(" +
                 "?::character varying," + // key_param
                 "?::character varying," + // name_param
                 "?::text," + // description_param
@@ -2006,7 +2006,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetRoleSQL() {
-        return "SELECT * FROM ox_role(" +
+        return "SELECT * FROM link_role(" +
                 "?::character varying," + // key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -2014,7 +2014,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetAllRolesSQL() {
-        return "SELECT * FROM ox_get_roles(" +
+        return "SELECT * FROM link_get_roles(" +
                 "?::character varying[]" + // role_key_param
                 ")";
     }
@@ -2506,7 +2506,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetUserSQL() {
-        return "SELECT * FROM ox_user(" +
+        return "SELECT * FROM link_user(" +
                 "?::character varying," + // key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -2514,7 +2514,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetUserByEmailSQL() {
-        return "SELECT * FROM ox_user_by_email(" +
+        return "SELECT * FROM link_user_by_email(" +
                 "?::character varying," + // email_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -2522,7 +2522,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetUserByUsernameSQL() {
-        return "SELECT * FROM ox_user_by_username(" +
+        return "SELECT * FROM link_user_by_username(" +
                 "?::character varying," + // username_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -2530,7 +2530,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getSetUserSQL() {
-        return "SELECT ox_set_user(" +
+        return "SELECT link_set_user(" +
                 "?::character varying," + // key
                 "?::character varying," + // name_param
                 "?::character varying," + // email_param
@@ -2547,14 +2547,14 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetUsersSQL() {
-        return "SELECT * FROM ox_get_users(" +
+        return "SELECT * FROM link_get_users(" +
                 "?::character varying[]" + // role_key_param
                 ")";
     }
 
     @Override
     public String getGetEncKeyUsageSQL() {
-        return "SELECT * FROM ox_get_enc_key_usage(" +
+        return "SELECT * FROM link_get_enc_key_usage(" +
                 "?::smallint," + // enc_key_ix_param
                 "?::character varying[]" + // logged_role_key_param
                 ")";
@@ -2562,7 +2562,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getSetPrivilegeSQL() {
-        return "SELECT ox_set_privilege(" +
+        return "SELECT link_set_privilege(" +
                 "?::character varying," + // key
                 "?::character varying," + // role_key_param
                 "?::character varying," + // privilege_key_param
@@ -2577,7 +2577,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetItemChildrenSQL() {
-        return "SELECT * FROM ox_get_item_children(" +
+        return "SELECT * FROM link_get_item_children(" +
                 "?::character varying," + // item_key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -2585,7 +2585,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetItemFirstLevelChildrenSQL() {
-        return "SELECT * FROM ox_get_item_first_level_children(" +
+        return "SELECT * FROM link_get_item_first_level_children(" +
                 "?::character varying," + // item_key_param
                 "?::character varying," + // child_item_type_key_param
                 "?::character varying[]" + // role_key_param
@@ -2594,7 +2594,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeletePrivilegeSQL() {
-        return "SELECT ox_delete_privilege(" +
+        return "SELECT link_delete_privilege(" +
                 "?::character varying," + // key_param
                 "?::character varying[]" + // logged_role_key_param
                 ")";
@@ -2602,7 +2602,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetAllPrivilegeByRoleSQL() {
-        return "SELECT * FROM ox_get_privileges_by_role(" +
+        return "SELECT * FROM link_get_privileges_by_role(" +
                 "?::character varying," + // privileges_role_key_param
                 "?::character varying[]" + // logged_role_key_param
                 ")";
@@ -2610,7 +2610,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getDeletePartitionSQL() {
-        return "SELECT ox_delete_partition(" +
+        return "SELECT link_delete_partition(" +
                 "?::character varying," + // key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -2618,7 +2618,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getSetPartitionSQL() {
-        return "SELECT ox_set_partition(" +
+        return "SELECT link_set_partition(" +
                 "?::character varying," + // key_param
                 "?::character varying," + // name_param
                 "?::text," + // description_param
@@ -2630,14 +2630,14 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetAllPartitionsSQL() {
-        return "SELECT * FROM ox_get_partitions(" +
+        return "SELECT * FROM link_get_partitions(" +
                 "?::character varying[]" + // role_key_param
                 ")";
     }
 
     @Override
     public String getGetPartitionSQL() {
-        return "SELECT * FROM ox_partition(" +
+        return "SELECT * FROM link_partition(" +
                 "?::character varying," + // key_param
                 "?::character varying[]" + // role_key_param
                 ")";
@@ -2645,7 +2645,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public String getGetPrivilegeSQL() {
-        return "SELECT * FROM ox_privilege(" +
+        return "SELECT * FROM link_privilege(" +
                 "?::character varying," + // key_param
                 "?::character varying[]" + // user_role_key_param
                 ")";
