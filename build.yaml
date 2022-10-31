@@ -1,7 +1,7 @@
 ---
 env:
   REG_NAME: registry.gitlab.com
-  REPO_NAME: southwinds/images
+  REPO_NAME: southwinds-pub/image/openjdk:14-j9-ubi8-min
   IMG_NAME: interlink
   IMG_TAG: 1.0.0
 
