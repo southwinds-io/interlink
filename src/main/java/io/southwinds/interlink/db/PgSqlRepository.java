@@ -129,7 +129,7 @@ public class PgSqlRepository implements DbRepository {
             db.setString(14, getUser()); // changed_by_param
             db.setString(15, item.getPartition()); // partition_key_param
             db.setArray(16, role); // role_key_param
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_item"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_item"));
 
             // add the key to the item object
             item.setKey(key);
@@ -240,7 +240,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public synchronized Result deleteItem(String key, String[] role) {
-        return delete(getDeleteItemSQL(), "ox_delete_item", key, role);
+        return delete(getDeleteItemSQL(), "link_delete_item", key, role);
     }
 
     @Override
@@ -409,7 +409,7 @@ public class PgSqlRepository implements DbRepository {
             db.setObject(13, link.getVersion());
             db.setString(14, getUser());
             db.setArray(15, role);
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_link"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_link"));
         } catch (Exception ex) {
             result.setError(true);
             result.setMessage(String.format("Failed to create or update link with key '%s': %s", key, ex.getMessage()));
@@ -421,7 +421,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public synchronized Result deleteLink(String key, String[] role) {
-        return delete(getDeleteLinkSQL(), "ox_delete_link", key, role);
+        return delete(getDeleteLinkSQL(), "link_delete_link", key, role);
     }
 
     @Override
@@ -471,7 +471,7 @@ public class PgSqlRepository implements DbRepository {
     @Override
     public synchronized Result clear(String[] role) {
         try {
-            return delete(getClearAllSQL(), "ox_clear_all", null, role);
+            return delete(getClearAllSQL(), "link_clear_all", null, role);
         } catch (Exception ex) {
             ex.printStackTrace();
             Result result = new Result("CLEAR_ALL");
@@ -537,7 +537,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public synchronized Result deleteItemTypes(String[] role) {
-        return delete(getDeleteItemTypes(), "ox_delete_item_types", null, role);
+        return delete(getDeleteItemTypes(), "link_delete_item_types", null, role);
     }
 
     @Override
@@ -589,7 +589,7 @@ public class PgSqlRepository implements DbRepository {
             db.setObject(12, itemType.getEncryptTxt());
             db.setString(13, util.toJSONString(itemType.getStyle()));
             db.setArray(14, role);
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_item_type"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_item_type"));
         } catch (Exception ex) {
             result.setMessage(ex);
         } finally {
@@ -600,7 +600,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public synchronized Result deleteItemType(String key, String[] role) {
-        return delete(getDeleteItemTypeSQL(), "ox_delete_item_type", key, null, role);
+        return delete(getDeleteItemTypeSQL(), "link_delete_item_type", key, null, role);
     }
 
     /*
@@ -662,7 +662,7 @@ public class PgSqlRepository implements DbRepository {
             db.setObject(10, typeAttr.getVersion()); // version_param
             db.setString(11, getUser()); // changed_by_param
             db.setArray(12, role);
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_type_attribute"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_type_attribute"));
         } catch (Exception ex) {
             result.setMessage(ex);
         } finally {
@@ -798,7 +798,7 @@ public class PgSqlRepository implements DbRepository {
             db.setObject(10, typeAttr.getVersion()); // version_param
             db.setString(11, getUser()); // changed_by_param
             db.setArray(12, role);
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_type_attribute"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_type_attribute"));
         } catch (Exception ex) {
             result.setMessage(ex);
         } finally {
@@ -809,12 +809,12 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public synchronized Result deleteLinkTypeAttr(String linkTypeKey, String typeAttrKey, String[] role) {
-        return delete(getDeleteLinkTypeAttributeSQL(), "ox_delete_link_type_attribute", linkTypeKey, typeAttrKey, role);
+        return delete(getDeleteLinkTypeAttributeSQL(), "link_delete_link_type_attribute", linkTypeKey, typeAttrKey, role);
     }
 
     @Override
     public synchronized Result deleteItemTypeAttr(String itemTypeKey, String typeAttrKey, String[] role) {
-        return delete(getDeleteItemTypeAttributeSQL(), "ox_delete_item_type_attribute", itemTypeKey, typeAttrKey, role);
+        return delete(getDeleteItemTypeAttributeSQL(), "link_delete_item_type_attribute", itemTypeKey, typeAttrKey, role);
     }
 
     /*
@@ -860,7 +860,7 @@ public class PgSqlRepository implements DbRepository {
             db.setString(10, linkType.getModelKey()); // model_key_param
             db.setString(11, getUser()); // changed_by_param
             db.setArray(12, role);
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_link_type"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_link_type"));
         } catch (Exception ex) {
             result.setMessage(ex);
         } finally {
@@ -871,12 +871,12 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public synchronized Result deleteLinkType(String key, String[] role) {
-        return delete(getDeleteLinkTypeSQL(), "ox_delete_link_type", key, null, role);
+        return delete(getDeleteLinkTypeSQL(), "link_delete_link_type", key, null, role);
     }
 
     @Override
     public synchronized Result deleteLinkTypes(String[] role) {
-        return delete(getDeleteLinkTypes(), "ox_delete_link_types", null, role);
+        return delete(getDeleteLinkTypes(), "link_delete_link_types", null, role);
     }
 
     @Override
@@ -968,7 +968,7 @@ public class PgSqlRepository implements DbRepository {
             db.setObject(7, linkRule.getVersion()); // version_param
             db.setString(8, getUser()); // changed_by_param
             db.setArray(9, role); // roel_key_param
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_link_rule"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_link_rule"));
         } catch (Exception ex) {
             result.setMessage(ex);
         } finally {
@@ -979,12 +979,12 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public synchronized Result deleteLinkRule(String key, String[] role) {
-        return delete(getDeleteLinkRuleSQL(), "ox_delete_link_rule", key, role);
+        return delete(getDeleteLinkRuleSQL(), "link_delete_link_rule", key, role);
     }
 
     @Override
     public synchronized Result deleteLinkRules(String[] role) {
-        return delete(getDeleteLinkRulesSQL(), "ox_delete_link_rules",null, role);
+        return delete(getDeleteLinkRulesSQL(), "link_delete_link_rules",null, role);
     }
 
     @Override
@@ -1330,7 +1330,7 @@ public class PgSqlRepository implements DbRepository {
             db.setString(4, (description != null) ? (String) description : null); // description_param
             db.setString(2, (label != null) ? (String) label : null); // label
             db.setString(5, getUser()); // changed_by_param
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_create_tag"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_create_tag"));
             if (result.getOperation().equals("L")){
                 result.setMessage(String.format("Tag data for label '%s' already exists and cannot be overridden.", label));
             }
@@ -1358,7 +1358,7 @@ public class PgSqlRepository implements DbRepository {
             db.setString(5, (description != null) ? (String) description : null); // description_param
             db.setString(6, getUser()); // changed_by_param
             db.setObject(7, version); // version_param
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_update_tag"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_update_tag"));
         } catch (Exception ex) {
             result.setMessage(ex);
         } finally {
@@ -1531,7 +1531,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public synchronized Result deleteModel(String key, String[] role) {
-        return delete(getDeleteModelSQL(), "ox_delete_model", key, null, role);
+        return delete(getDeleteModelSQL(), "link_delete_model", key, null, role);
     }
 
     @Override
@@ -1547,7 +1547,7 @@ public class PgSqlRepository implements DbRepository {
             db.setString(6, getUser()); // changed_by_param
             db.setString(7, model.getPartition()); // partition_key_param
             db.setArray(8, role);
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_model"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_model"));
         } catch (Exception ex) {
             result.setMessage(ex);
         } finally {
@@ -1729,7 +1729,7 @@ public class PgSqlRepository implements DbRepository {
             db.setString(3, membership.getRoleKey()); // role_key_param
             db.setString(4, getUser()); // changed_by_param
             db.setArray(5, role); // role_key_param
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_add_membership"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_add_membership"));
         } catch (Exception ex) {
             result.setMessage(ex);
         } finally {
@@ -1745,7 +1745,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public Result deleteMembership(String key, String[] role) {
-        return delete(getDeleteMembershipSQL(), "ox_delete_membership", key, null, role);
+        return delete(getDeleteMembershipSQL(), "link_delete_membership", key, null, role);
     }
 
     @Override
@@ -1921,7 +1921,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public synchronized Result deletePartition(String key, String[] role) {
-        return delete(getDeletePartitionSQL(), "ox_delete_partition", key, role);
+        return delete(getDeletePartitionSQL(), "link_delete_partition", key, role);
     }
 
     @Override
@@ -1936,7 +1936,7 @@ public class PgSqlRepository implements DbRepository {
             db.setObject(4, part.getVersion()); // version_param
             db.setString(5, getUser()); // changed_by_param
             db.setArray(6, role); // role_key_param
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_partition"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_partition"));
         } catch (Exception ex) {
             ex.printStackTrace();
             result.setError(true);
@@ -2021,7 +2021,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public synchronized Result deleteRole(String key, String[] role) {
-        return delete(getDeleteRoleSQL(), "ox_delete_role", key, role);
+        return delete(getDeleteRoleSQL(), "link_delete_role", key, role);
     }
 
     @Override
@@ -2037,7 +2037,7 @@ public class PgSqlRepository implements DbRepository {
             db.setObject(5, roleData.getVersion()); // version_param
             db.setString(6, getUser()); // changed_by_param
             db.setArray(7, role); // role_key_param
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_role"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_role"));
         } catch (Exception ex) {
             ex.printStackTrace();
             result.setError(true);
@@ -2105,7 +2105,7 @@ public class PgSqlRepository implements DbRepository {
             db.setObject(7, privilege.getVersion()); // version_param
             db.setString(8, getUser()); // changed_by_param
             db.setArray(9, role); // role_key_param
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_privilege"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_privilege"));
         } catch (Exception ex) {
             ex.printStackTrace();
             result.setError(true);
@@ -2224,19 +2224,19 @@ public class PgSqlRepository implements DbRepository {
             db.setShort(1, (short)0);
             db.setArray(2, role);
             ResultSet set = db.executeQuerySingleRow();
-            data.setNoKeyCount(set.getLong("ox_get_enc_key_usage"));
+            data.setNoKeyCount(set.getLong("link_get_enc_key_usage"));
             set.close();
             db.prepare(getGetEncKeyUsageSQL());
             db.setShort(1, (short)1);
             db.setArray(2, role);
             set = db.executeQuerySingleRow();
-            data.setKey1Count(set.getLong("ox_get_enc_key_usage"));
+            data.setKey1Count(set.getLong("link_get_enc_key_usage"));
             set.close();
             db.prepare(getGetEncKeyUsageSQL());
             db.setShort(1, (short)2);
             db.setArray(2, role);
             set = db.executeQuerySingleRow();
-            data.setKey2Count(set.getLong("ox_get_enc_key_usage"));
+            data.setKey2Count(set.getLong("link_get_enc_key_usage"));
             set.close();
             data.setActiveKey(util.getEncKeyIx());
             data.setDefaultKey(util.getDefaultEncKeyIx());
@@ -2336,7 +2336,7 @@ public class PgSqlRepository implements DbRepository {
             db.setObject(9, user.getVersion()); // version_param
             db.setString(10, getUser()); // changed_by_param
             db.setArray(11, role);
-            result.setOperation(db.executeQueryAndRetrieveStatus("ox_set_user"));
+            result.setOperation(db.executeQueryAndRetrieveStatus("link_set_user"));
         } catch (Exception ex) {
             result.setMessage(ex);
         } finally {
@@ -2385,7 +2385,7 @@ public class PgSqlRepository implements DbRepository {
 
     @Override
     public synchronized Result deleteUser(String key, String[] role) {
-        return delete(getDeleteUserSQL(), "ox_delete_user", key, null, role);
+        return delete(getDeleteUserSQL(), "link_delete_user", key, null, role);
     }
 
     @Override
