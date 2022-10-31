@@ -43,7 +43,7 @@ RUN mvn -Dmaven.test.skip=true -f pom.xml package && unzip -o ./target/*.jar -d 
 
 # the final release image
 # uses universal base image rhel 8 minimal with OpenJ9 JVM and Open JDK 14
-FROM registry.gitlab.com/southwinds/images/openjdk:14-j9-ubi8-min
+FROM registry.gitlab.com/southwinds-pub/image/openjdk:14-j9-ubi8-min
 
 MAINTAINER admin <admin@southwinds.io>
 
