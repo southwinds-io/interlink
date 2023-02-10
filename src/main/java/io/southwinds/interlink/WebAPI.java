@@ -38,7 +38,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-@Api("ONIX CMDB Web API")
+@Api("Interlink CMDB Web API")
 @RestController
 public class WebAPI {
 
